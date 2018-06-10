@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#2018/06/10 ShowNet DropCheck Tool ShellScript
+#2018/06/11 ShowNet DropCheck Tool ShellScript
 #
 
 function ext_pingv4() {
@@ -53,21 +53,27 @@ function digv6() {
     echo "+------------------------------------------------------------------+"
 }
 
-function http_check(){
+function http_check() {
     /opt/google/chrome/google-chrome http://ipv4.google.com http://ipv6.google.com --incognito
+}
+
+function kame_check() {
+    /opt/google/chrome/google-chrome http://www.kame.net --incognito
 }
 
 function addr_check() {
     addr4=`/sbin/ip -f inet -o addr show ${INTERFACE_NAME} | awk '{print $4}' `
     addr6=`/sbin/ip -f inet -o -6 addr show ${INTERFACE_NAME} | awk '($6 == "global"){print $4}'`
+    netv4=`ipcalc -nb $addr4 | awk '($1 == "Network:"){print $2}'`
     prefix=`/sbin/ip -f inet -o -6 addr show ${INTERFACE_NAME} | awk '($6 == "global"){print $4}' | cut -d: -f1-4`
     gateway4=`ipcalc -nb $addr4 | awk '($1 == "HostMin:"){print $2}'`
     gateway6="${prefix}::1"
     echo "+------------------------------------------------------------------+"
-    echo -e "+ Interface IPv4 Address = \e[35m${addr4}\e[m"
+    echo -e "+ IPv4 Network Address = \e[35m${netv4}\e[m"
+    echo "+ IPv4 Address = ${addr4}"
     echo "+ IPv4 Gateway Address = ${gateway4}"
-    echo "+ Interface IPv6 Address = ${addr6}"
     echo -e "+ IPv6 Prefix = \e[35m${prefix}::/64\e[m"
+    echo "+ IPv6 Address = ${addr6}"
     echo "+ IPv6 Gateway Address = ${gateway6}"
     echo "+------------------------------------------------------------------+"
 }

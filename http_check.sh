@@ -2,4 +2,10 @@
 
 source lib/main.sh
 
-http_check
+if [ "$1" == "" ] ; then
+    http_check
+elif [ "$1" == "--kame" ] ; then
+    kame_check
+else
+    echo "Error:option is (None) or --kame."
+fi
