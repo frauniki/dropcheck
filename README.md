@@ -5,7 +5,9 @@
 - ip
 - ipcalc
 - ping
-- dig 
+- dig
+- mtr
+- (google-chrome)
 
 環境
 ----------
