@@ -3,51 +3,52 @@
 #2018/06/10 ShowNet DropCheck Tool ShellScript
 #
 
-source ../tool.conf
-
 function ext_pingv4() {
-    echo "+ IPv4 External Ping Check(8.8.8.8)"
+    echo -e "\e[1;37m+ IPv4 External Ping Check(8.8.8.8)\e[m"
     ping -D -s 1472 -c 3 8.8.8.8
+    echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function ext_pingv6() {
-    echo "+ IPv6 External Ping Check(2001:4860:4860::8888)"
+    echo -e "\e[1;37m+ IPv6 External Ping Check(2001:4860:4860::8888)\e[m"
     ping -D -s 1232 -c 3 2001:4860:4860::8888
+    echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function pingv4() {
     pingv4_addr=$gateway4
-    echo "+ IPv4 Gateway Ping Check"
+    echo -e "\e[1;37m+ IPv4 Gateway Ping Check\e[m"
     ping -D -s 1472 -c 3 $pingv4_addr
+    echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function pingv6() {
     pingv6_addr=$gateway6
-    echo "+ IPv6 Gateway Ping Check"
+    echo -e "\e[1;37m+ IPv6 Gateway Ping Check\e[m"
     ping -D -s 1232 -c 3 $pingv6_addr
+    echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function digv4() {
-    echo "+------------------------------------------------------------------+"
-    echo "+ DNS A Check"
+    echo -e "\e[1;37m+ DNS A Check\e[m"
     dns_a=`dig +short ipv4.google.com A | awk 'NR>1'`
     if [ "$dns_a" != "" ] ; then
         echo "+ DNS A Recode = ${dns_a}"
-        echo -e "+DNS A Check : \e[32mOK!\e[m"
+        echo -e "+ DNS A Check : \e[32mOK!\e[m"
     else
-        echo -e "+DNS A Check : \e[31mNG!\e[m"
+        echo -e "+ DNS A Check : \e[31mNG!\e[m"
     fi
 }
 
 function digv6() {
     echo "+------------------------------------------------------------------+"
-    echo "+ DNS AAAA Check"
+    echo -e "\e[1;37m+ DNS AAAA Check\e[m"
     dns_aaaa=`dig +short ipv6.google.com AAAA |  awk 'NR>1'`
     if [ "$dns_aaaa" != "" ] ; then
         echo "+ DNS AAAA Recode = ${dns_aaaa}"
-        echo -e "+DNS AAAA Check : \e[32mOK!\e[m"
+        echo -e "+ DNS AAAA Check : \e[32mOK!\e[m"
     else
-        echo -e "+DNS AAAA Check : \e[31mNG!\e[m"
+        echo -e "+ DNS AAAA Check : \e[31mNG!\e[m"
     fi
 }
 
@@ -62,10 +63,10 @@ function addr_check() {
     gateway4=`ipcalc -nb $addr4 | awk '($1 == "HostMin:"){print $2}'`
     gateway6="${prefix}::1"
     echo "+------------------------------------------------------------------+"
-    echo "+ Interface IPv4 Address = ${addr4}"
+    echo -e "+ Interface IPv4 Address = \e[35m${addr4}\e[m"
     echo "+ IPv4 Gateway Address = ${gateway4}"
-    echo "+ Interface IPv6 Address = ${addr6}"
-    echo "+ IPv6 Prefix ${prefix}::/64"
+    echo -e "+ Interface IPv6 Address = \e[35m${addr6}\e[m"
+    echo "+ IPv6 Prefix = ${prefix}::/64"
     echo "+ IPv6 Gateway Address = ${gateway6}"
     echo "+------------------------------------------------------------------+"
 }
