@@ -38,10 +38,10 @@ function digv4() {
     else
         echo -e "+ DNS A Check : \e[31mNG!\e[m"
     fi
+    echo "+------------------------------------------------------------------+"
 }
 
 function digv6() {
-    echo "+------------------------------------------------------------------+"
     echo -e "\e[1;37m+ DNS AAAA Check\e[m"
     dns_aaaa=`dig +short ipv6.google.com AAAA |  awk 'NR>1'`
     if [ "$dns_aaaa" != "" ] ; then
@@ -50,6 +50,7 @@ function digv6() {
     else
         echo -e "+ DNS AAAA Check : \e[31mNG!\e[m"
     fi
+    echo "+------------------------------------------------------------------+"
 }
 
 function http_check(){
