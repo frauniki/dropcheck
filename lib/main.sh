@@ -3,6 +3,8 @@
 #2018/06/10 ShowNet DropCheck Tool ShellScript
 #
 
+source ../tool.conf
+
 function ext_pingv4() {
     echo "+ IPv4 External Ping Check(8.8.8.8)"
     ping -D -s 1472 -c 3 8.8.8.8
@@ -54,9 +56,9 @@ function http_check(){
 }
 
 function addr_check() {
-    addr4=`/sbin/ip -f inet -o addr show enp0s20u1u1 | awk '{print $4}' `
-    addr6=`/sbin/ip -f inet -o -6 addr show enp0s20u1u1 | awk '($6 == "global"){print $4}'`
-    prefix=`/sbin/ip -f inet -o -6 addr show enp0s20u1u1 | awk '($6 == "global"){print $4}' | cut -d: -f1-4`
+    addr4=`/sbin/ip -f inet -o addr show ${INTERFACE_NAME} | awk '{print $4}' `
+    addr6=`/sbin/ip -f inet -o -6 addr show ${INTERFACE_NAME} | awk '($6 == "global"){print $4}'`
+    prefix=`/sbin/ip -f inet -o -6 addr show ${INTERFACE_NAME} | awk '($6 == "global"){print $4}' | cut -d: -f1-4`
     gateway4=`ipcalc -nb $addr4 | awk '($1 == "HostMin:"){print $2}'`
     gateway6="${prefix}::1"
     echo "+------------------------------------------------------------------+"
