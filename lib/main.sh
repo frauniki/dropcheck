@@ -66,8 +66,8 @@ function addr_check() {
     echo "+------------------------------------------------------------------+"
     echo -e "+ Interface IPv4 Address = \e[35m${addr4}\e[m"
     echo "+ IPv4 Gateway Address = ${gateway4}"
-    echo -e "+ Interface IPv6 Address = \e[35m${addr6}\e[m"
-    echo "+ IPv6 Prefix = ${prefix}::/64"
+    echo "+ Interface IPv6 Address = ${addr6}"
+    echo -e "+ IPv6 Prefix = \e[35m${prefix}::/64\e[m"
     echo "+ IPv6 Gateway Address = ${gateway6}"
     echo "+------------------------------------------------------------------+"
 }
