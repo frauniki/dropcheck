@@ -5,27 +5,27 @@
 
 function ext_pingv4() {
     echo -e "\e[1;37m+ IPv4 External Ping Check(8.8.8.8)\e[m"
-    ping -D -s 1472 -c 3 8.8.8.8
+    ping -D -s 1472 -c 3 -I $INTERFACE_NAME 8.8.8.8
     echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function ext_pingv6() {
     echo -e "\e[1;37m+ IPv6 External Ping Check(2001:4860:4860::8888)\e[m"
-    ping -D -s 1232 -c 3 2001:4860:4860::8888
+    ping -D -s 1232 -c 3 -I $INTERFACE_NAME 2001:4860:4860::8888
     echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function pingv4() {
     pingv4_addr=$gateway4
     echo -e "\e[1;37m+ IPv4 Gateway Ping Check\e[m"
-    ping -D -s 1472 -c 3 $pingv4_addr
+    ping -D -s 1472 -c 3 -I $INTERFACE_NAME $pingv4_addr
     echo "+-------------------------------------------------------------------------------------------+"
 }
 
 function pingv6() {
     pingv6_addr=$gateway6
     echo -e "\e[1;37m+ IPv6 Gateway Ping Check\e[m"
-    ping -D -s 1232 -c 3 $pingv6_addr
+    ping -D -s 1232 -c 3 -I $INTERFACE_NAME $pingv6_addr
     echo "+-------------------------------------------------------------------------------------------+"
 }
 
